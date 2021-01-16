@@ -30,6 +30,7 @@
         if(isset($_GET['action']) and $_GET['action'] == 'projects') { ?>
                <!-- new project form -->
             <form class="row " action="process.php" method="POST">
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <div class="row">
                     <div class="col">
                         <label class="form-label" for="project_title">Add new project</label>
@@ -37,7 +38,11 @@
                     </div>
                 </div>
                 <div class="g-3 p-2">
-                    <button class="btn btn-primary" type="submit" name="save_project">Submit</button> 
+                    <?php if(isset($_GET['edit_project'])) { ?>
+                        <button class="btn btn-info" type="submit" name="update_project">Update</button> 
+                    <?php } else {  ?>
+                        <button class="btn btn-primary" type="submit" name="save_project">Submit</button> 
+                    <?php }; ?>
                 </div>
             </form>
             
@@ -57,6 +62,7 @@
         <?php if(isset($_GET['action']) and $_GET['action'] == 'employees') { ?>
             <!-- new employee form -->
             <form class="row " action="process.php" method="POST">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <div class="row">
                     <div  class="col">
                         <label class="form-label" for="first_name">Add new employee</label>
@@ -68,7 +74,11 @@
                     </div>
                 </div>
                 <div class="g-3 p-2">
-                    <button class="btn btn-primary" type="submit" name="save_employee">Submit</button>
+                <?php if(isset($_GET['edit_employee'])) { ?>
+                        <button class="btn btn-info" type="submit" name="update_employee">Update</button> 
+                    <?php } else {  ?>
+                        <button class="btn btn-primary" type="submit" name="save_employee">Submit</button> 
+                    <?php }; ?>
                 </div>
             </form>
 

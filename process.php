@@ -44,7 +44,7 @@ function display_projects ($result_projects) {
                   <td>" . $row["project_title"] . "</td>
                   <td>" . $row["employees"]. "</td>
                   <td><a href='process.php?delete_project=". $row['project_id'] ."'><button class='btn btn-danger' type='submit'>Delete</button></a>
-                  <a href='index.php?action=employees&edit_project=". $row['project_id'] ."'><button class='btn btn-info' type='submit'>Edit</button>
+                  <a href='index.php?action=projects&edit_project=". $row['project_id'] ."'><button class='btn btn-info' type='submit'>Edit</button>
                   </td>";
             echo "</tr>";
         }
@@ -122,9 +122,17 @@ if (isset($_GET['edit_employee'])) {
     if (mysqli_num_rows($edit_employee) > 0) {
         $first_name = $row['first_name'];
         $last_name = $row['last_name'];    
-    
     }
 }
+if (isset($_POST['update_employee'])) {
+    $id = $_POST['id'];
+    $first_name = $_POST['first_name'];   
+    $last_name = $_POST['last_name']; 
+    $sql = "UPDATE employees SET first_name='$first_name', last_name='$last_name'  WHERE employee_id= $id";
+    mysqli_query($conn, $sql);
+    header('Location: ./?action=employees');
+}
+
 
 //editing project
 if (isset($_GET['edit_project'])) {
@@ -133,10 +141,18 @@ if (isset($_GET['edit_project'])) {
     $edit_project = mysqli_query($conn, $sql_edit_project);
     $row = mysqli_fetch_assoc($edit_project);   
     if (mysqli_num_rows($edit_project) > 0) {
-        $project_title = $row['project_title']; 
-   
+        $project_title = $row['project_title'];   
     }
 }
+
+if (isset($_POST['update_project'])) {
+    $id = $_POST['id'];
+    $project_title = $_POST['project_title'];    
+    $sql = "UPDATE projects SET project_title='$project_title' WHERE project_id= $id";
+    mysqli_query($conn, $sql);
+    header('Location: ./?action=projects');
+}
+
 
 
 // add new project
