@@ -55,7 +55,7 @@ function display_projects ($result_projects) {
 
 // SQL query for 'employees' tab
 $sql_employees = 
-        "SELECT employees.employee_id, concat_ws(' ', employees.first_name, employees.last_name ) as employees, projects.project_title
+        "SELECT employees.employee_id, concat_ws(' ', employees.first_name, employees.last_name ) as employees, projects.project_title, employees.project
         FROM employees 
         LEFT JOIN projects 
         ON employees.project = projects.project_id
@@ -124,12 +124,31 @@ if (isset($_GET['edit_employee'])) {
         $last_name = $row['last_name'];    
     }
 }
-if (isset($_POST['update_employee'])) {
+
+//dropdown projects list
+// $result_projects values comes from SQL query from project table listing
+function assign_project ($result_projects) {
+    if (mysqli_num_rows($result_projects) > 0) {
+        while($row = mysqli_fetch_assoc($result_projects)) {
+            echo '<option value=' . $row['project_id'] . '>' . $row['project_title'] . '</option>';
+        }
+    } else {
+        echo '0 results';
+    }
+}
+
+// edit and assign project for employee
+if (isset($_POST['update_employee']) AND isset($_POST['assign_project'])) {
     $id = $_POST['id'];
     $first_name = $_POST['first_name'];   
     $last_name = $_POST['last_name']; 
+    $project = $_POST['assign_project'];
+
     $sql = "UPDATE employees SET first_name='$first_name', last_name='$last_name'  WHERE employee_id= $id";
     mysqli_query($conn, $sql);
+    $sql = "UPDATE employees SET project ='$project' WHERE employee_id= $id";
+    mysqli_query($conn, $sql);
+
     header('Location: ./?action=employees');
 }
 

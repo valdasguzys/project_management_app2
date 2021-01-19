@@ -75,6 +75,9 @@
                 </div>
                 <div class="g-3 p-2">
                 <?php if(isset($_GET['edit_employee'])) { ?>
+                        <select name="assign_project">
+                            <?php assign_project($result_projects) ?>
+                        </select>
                         <button class="btn btn-info" type="submit" name="update_employee">Update</button> 
                     <?php } else {  ?>
                         <button class="btn btn-primary" type="submit" name="save_employee">Submit</button> 
@@ -90,11 +93,11 @@
             </tr>
             
         <?php display_employees ($result_employees); 
-            }; ?>
-
-   
-        
+            }; ?>        
     </table>
+
+
+
 </div>
 </div>
 
