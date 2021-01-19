@@ -31,18 +31,20 @@
                <!-- new project form -->
             <form class="row " action="process.php" method="POST">
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <div class="row">
+                <div class="row w-50 m-2">
                     <div class="col">
                         <label class="form-label" for="project_title">Add new project</label>
                         <input class="form-control " type="text" name="project_title" placeholder="Enter project title" value="<?php echo $project_title ?>">
                     </div>
                 </div>
-                <div class="g-3 p-2">
-                    <?php if(isset($_GET['edit_project'])) { ?>
-                        <button class="btn btn-info" type="submit" name="update_project">Update</button> 
-                    <?php } else {  ?>
-                        <button class="btn btn-primary" type="submit" name="save_project">Submit</button> 
-                    <?php }; ?>
+                <div class="row m-2">
+                    <div class="col">
+                        <?php if(isset($_GET['edit_project'])) { ?>
+                            <button class="btn btn-info" type="submit" name="update_project">Update</button> 
+                        <?php } else {  ?>
+                            <button class="btn btn-primary" type="submit" name="save_project">Submit</button> 
+                        <?php }; ?>
+                    </div>
                 </div>
             </form>
             
@@ -63,8 +65,8 @@
             <!-- new employee form -->
             <form class="row " action="process.php" method="POST">
             <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <div class="row">
-                    <div  class="col">
+                <div class="row w-50 m-2">
+                    <div  class="col ">
                         <label class="form-label" for="first_name">Add new employee</label>
                         <input class="form-control" type="text" name="first_name" placeholder="Enter employee first name" value="<?php echo $first_name ?>">
                     </div>
@@ -72,16 +74,19 @@
                         <label class="form-label" for="last_name">.</label>
                         <input class="form-control" type="text" name="last_name" placeholder="Enter employee last name" value="<?php echo $last_name ?>">
                     </div>
-                </div>
-                <div class="g-3 p-2">
-                <?php if(isset($_GET['edit_employee'])) { ?>
-                        <select name="assign_project">
-                            <?php assign_project($result_projects) ?>
-                        </select>
-                        <button class="btn btn-info" type="submit" name="update_employee">Update</button> 
-                    <?php } else {  ?>
-                        <button class="btn btn-primary" type="submit" name="save_employee">Submit</button> 
-                    <?php }; ?>
+                </div>    
+                <div class="row w-75 m-2">
+                    <div class="col">
+                        <?php if(isset($_GET['edit_employee'])) { ?>
+                            <select class="form-select w-50"  name="assign_project">
+                                <option selected>Assign project:</option>
+                                <?php assign_project($result_projects) ?>
+                            </select>
+                            <button class="btn btn-info mt-2" type="submit" name="update_employee">Update</button> 
+                        <?php } else {  ?>
+                            <button class="btn btn-primary" type="submit" name="save_employee">Submit</button> 
+                        <?php }; ?>
+                    </div>
                 </div>
             </form>
 
